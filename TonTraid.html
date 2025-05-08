@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TON Connect</title>
+  <script type="module" src="https://unpkg.com/@tonconnect/ui@latest"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    #address {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Подключение TON-кошелька</h2>
+  <div id="ton-connect"></div>
+  <div id="address">Адрес: —</div>
+
+  <script type="module">
+    import { TonConnectUI } from "https://unpkg.com/@tonconnect/ui@latest?module";
+
+    const tonConnectUI = new TonConnectUI({
+      manifestUrl: 'http://26.106.136.157:8000/tonconnect-manifest.json',
+      buttonRootId: 'ton-connect'
+    });
+
+    tonConnectUI.onStatusChange(wallet => {
+      if (wallet?.account?.address) {
+        document.getElementById('address').innerText = `Адрес: ${wallet.account.address}`;
+      }
+    });
+  </script>
+
+</body>
+</html>
